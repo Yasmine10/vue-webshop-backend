@@ -20,6 +20,10 @@ public class Product {
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
+    @ManyToOne
+    @JoinColumn(name = "animal_id", referencedColumnName = "id")
+    private Animal animal;
+
     public Product() {
     }
 
@@ -77,5 +81,13 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Animal getAnimal() {
+        return animal;
+    }
+
+    public void setAnimal(Animal animal) {
+        this.animal = animal;
     }
 }
