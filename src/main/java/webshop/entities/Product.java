@@ -27,6 +27,10 @@ public class Product {
     public Product() {
     }
 
+    public Product(String brand) {
+        this.brand = brand;
+    }
+
     public Long getId() {
         return id;
     }

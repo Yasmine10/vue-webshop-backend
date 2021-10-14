@@ -40,4 +40,16 @@ public class ProductController {
         productRepo.findAllByAnimal_Name(animalName).forEach(productList::add);
         return productList;
     }
+
+    /*
+     * GET method: /animal={name}/brands
+     * to get all available brands for a specific animal
+     */
+    @RequestMapping(value = "/animal={name}/brands", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Product> getAllBrandsByAnimalName(@PathVariable(value = "name") String name) {
+        ArrayList<Product> productList = new ArrayList<>();
+        productRepo.findAllBrandsByAnimalName(name).forEach(productList::add);
+        return productList;
+    }
 }
