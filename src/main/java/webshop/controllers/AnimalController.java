@@ -27,8 +27,8 @@ public class AnimalController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
     public List<Animal> getAllAnimals() {
-        ArrayList<Animal> animalsList = new ArrayList<>();
-        animalRepo.findAll().forEach(animalsList::add);
-        return animalsList;
+        ArrayList<Animal> animalList = new ArrayList<>();
+        animalRepo.findAll().forEach(animalList::add);
+        return animalList;
     }
 }
