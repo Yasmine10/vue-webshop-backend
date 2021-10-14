@@ -18,6 +18,10 @@ public class Animal {
     @JsonIgnore
     private Set<Product> products;
 
+    @OneToMany(mappedBy = "animal")
+    @JsonIgnore
+    private Set<Category> categories;
+
     public Animal() {
     }
 
@@ -43,5 +47,13 @@ public class Animal {
 
     public void setProducts(Set<Product> products) {
         this.products = products;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 }

@@ -18,6 +18,10 @@ public class Category {
     @JsonIgnore
     private Set<Product> products;
 
+    @ManyToOne
+    @JoinColumn(name = "animal_id", referencedColumnName = "id")
+    private Animal animal;
+
     public Category() {
     }
 
@@ -43,5 +47,13 @@ public class Category {
 
     public void setProducts(Set<Product> products) {
         this.products = products;
+    }
+
+    public Animal getAnimal() {
+        return animal;
+    }
+
+    public void setAnimal(Animal animal) {
+        this.animal = animal;
     }
 }
