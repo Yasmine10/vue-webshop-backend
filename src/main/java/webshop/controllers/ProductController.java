@@ -8,6 +8,7 @@ import webshop.repositories.ProductRepo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -51,5 +52,15 @@ public class ProductController {
         ArrayList<Product> productList = new ArrayList<>();
         productRepo.findAllBrandsByAnimalName(name).forEach(productList::add);
         return productList;
+    }
+
+    /*
+     * GET method: /{id}
+     * to get a specific product by id
+     */
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Optional<Product> getProductById(@PathVariable(value = "id") Long id) {
+        return productRepo.findById(id);
     }
 }
