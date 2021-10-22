@@ -5,32 +5,32 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.Set;
 
-@Table(name = "categories")
+@Table(name = "animals")
 @Entity
-public class Category {
+public class Animal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long Id;
     private String name;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "animal")
     @JsonIgnore
     private Set<Product> products;
 
-    @ManyToOne
-    @JoinColumn(name = "animal_id", referencedColumnName = "id")
-    private Animal animal;
+    @OneToMany(mappedBy = "animal")
+    @JsonIgnore
+    private Set<Category> categories;
 
-    public Category() {
+    public Animal() {
     }
 
     public Long getId() {
-        return id;
+        return Id;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        Id = id;
     }
 
     public String getName() {
@@ -49,11 +49,11 @@ public class Category {
         this.products = products;
     }
 
-    public Animal getAnimal() {
-        return animal;
+    public Set<Category> getCategories() {
+        return categories;
     }
 
-    public void setAnimal(Animal animal) {
-        this.animal = animal;
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 }

@@ -2,10 +2,7 @@ package webshop.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import webshop.entities.Category;
 import webshop.repositories.CategoryRepo;
 
@@ -27,8 +24,20 @@ public class CategoryController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
     public List<Category> getAllCategories() {
-        ArrayList<Category> categoriesList = new ArrayList<>();
-        categoryRepo.findAll().forEach(categoriesList::add);
-        return categoriesList;
+        ArrayList<Category> categoryList = new ArrayList<>();
+        categoryRepo.findAll().forEach(categoryList::add);
+        return categoryList;
+    }
+
+    /*
+     * GET method:
+     * to get all categories for a specific animal
+     */
+    @RequestMapping(value = "/animal={name}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Category> getAllCategoriesByAnimalName(@PathVariable(value = "name") String name) {
+        ArrayList<Category> categoryList = new ArrayList<>();
+        categoryRepo.findAllByAnimal_Name(name).forEach(categoryList::add);
+        return categoryList;
     }
 }

@@ -2,15 +2,13 @@ package webshop.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import webshop.entities.Product;
 import webshop.repositories.ProductRepo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -30,5 +28,39 @@ public class ProductController {
         ArrayList<Product> productList = new ArrayList<>();
         productRepo.findAll().forEach(productList::add);
         return productList;
+    }
+
+    /*
+     * GET method: /animal={name}
+     * to get all the products for a specific animal
+     */
+    @RequestMapping(value = "/animal={name}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Product> getAllProductsByAnimalName(@PathVariable(value = "name") String animalName) {
+        ArrayList<Product> productList = new ArrayList<>();
+        productRepo.findAllByAnimal_Name(animalName).forEach(productList::add);
+        return productList;
+    }
+
+    /*
+     * GET method: /animal={name}/brands
+     * to get all available brands for a specific animal
+     */
+    @RequestMapping(value = "/animal={name}/brands", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Product> getAllBrandsByAnimalName(@PathVariable(value = "name") String name) {
+        ArrayList<Product> productList = new ArrayList<>();
+        productRepo.findAllBrandsByAnimalName(name).forEach(productList::add);
+        return productList;
+    }
+
+    /*
+     * GET method: /{id}
+     * to get a specific product by id
+     */
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Optional<Product> getProductById(@PathVariable(value = "id") Long id) {
+        return productRepo.findById(id);
     }
 }
