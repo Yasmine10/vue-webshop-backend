@@ -1,7 +1,6 @@
 package webshop.entities;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Table(name = "orderItems")
 @Entity
