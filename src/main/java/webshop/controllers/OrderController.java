@@ -24,7 +24,7 @@ public class OrderController {
      */
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
-    public Order saveOrder(@Valid @RequestBody Order order){
+    public Long saveOrder(@Valid @RequestBody Order order){
 
         LocalDateTime localDateTime = LocalDateTime.now();
         LocalDate localDate = localDateTime.toLocalDate();
@@ -32,6 +32,6 @@ public class OrderController {
 
         orderRepo.save(order);
 
-        return order;
+        return order.getId();
     }
 }

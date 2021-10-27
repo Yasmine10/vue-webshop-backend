@@ -1,6 +1,7 @@
 package webshop.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import webshop.entities.Order;
@@ -26,9 +27,8 @@ public class OrderItemController {
      */
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
-    public void saveOrder(@Valid @RequestBody List<OrderItem> orderItems){
-
+    public HttpStatus saveOrder(@Valid @RequestBody List<OrderItem> orderItems){
         orderItemRepo.saveAll(orderItems);
-//        return orderItems;
+        return HttpStatus.OK;
     }
 }
