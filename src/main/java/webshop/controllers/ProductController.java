@@ -1,10 +1,19 @@
 package webshop.controllers;
 
+import jakarta.ws.rs.QueryParam;
+import org.hibernate.annotations.common.util.impl.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import webshop.entities.Product;
+import webshop.entities.ProductPage;
+import webshop.entities.ProductSearchCriteria;
 import webshop.repositories.ProductRepo;
+import webshop.services.ProductService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +24,16 @@ import java.util.Optional;
 @RequestMapping(value = "/api/product")
 public class ProductController {
 
+//    public final Logger logger = LoggerFactory.getLogger();
+
     @Autowired
     private ProductRepo productRepo;
+
+    private final ProductService productService;
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
 
     /*
      * GET method:
@@ -63,4 +80,17 @@ public class ProductController {
     public Optional<Product> getProductById(@PathVariable(value = "id") Long id) {
         return productRepo.findById(id);
     }
+
+    /*
+     * GET method: /filter?brands={brands}&categories={categories}
+     * to filter products
+     */
+    @RequestMapping(value = "/filter", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Page<Product>> filterProducts(ProductPage productPage, ProductSearchCriteria productSearchCriteria) {
+
+        return new ResponseEntity<>(productService.findAllWithFilters(productPage, productSearchCriteria), HttpStatus.OK);
+
+    }
+
 }
