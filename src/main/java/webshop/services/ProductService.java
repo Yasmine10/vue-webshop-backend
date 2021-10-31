@@ -56,18 +56,19 @@ public class ProductService {
         }
 
         Predicate predicate = criteriaBuilder.and(predicates.toArray(new Predicate[0]));
-
         criteriaQuery.select(productRoot).where(predicates.toArray(new Predicate[]{}));
 
         TypedQuery<Product> typedQuery = entityManager.createQuery(criteriaQuery);
         typedQuery.setFirstResult(productPage.getPageNumber() * productPage.getPageSize());
         typedQuery.setMaxResults(productPage.getPageSize());
 
-        if(Objects.equals(productSearchCriteria.getSortDirection(), "ASC")) {
+        if(productSearchCriteria.getSortDirection() != null) {
+            if(productSearchCriteria.getSortDirection() == Sort.Direction.ASC)
             productPage.setSortDirection(Sort.Direction.ASC);
         } else {
             productPage.setSortDirection(Sort.Direction.DESC);
         }
+
         Sort sort = Sort.by(productPage.getSortDirection(), productPage.getSortby());
         Pageable pageable = PageRequest.of(productPage.getPageNumber(), productPage.getPageSize(), sort);
 

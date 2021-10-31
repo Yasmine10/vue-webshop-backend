@@ -82,15 +82,13 @@ public class ProductController {
     }
 
     /*
-     * GET method: /filter?brands={brands}&categories={categories}
+     * GET method: /filter
      * to filter products
      */
     @RequestMapping(value = "/filter", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<Page<Product>> filterProducts(ProductPage productPage, ProductSearchCriteria productSearchCriteria) {
-
         return new ResponseEntity<>(productService.findAllWithFilters(productPage, productSearchCriteria), HttpStatus.OK);
-
     }
 
 }
